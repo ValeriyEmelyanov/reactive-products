@@ -1,0 +1,10 @@
+spring:
+  liquibase:
+    url: jdbc:postgresql://localhost:5432/products_db
+    user: postgres
+    password: postgres
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/products_db
+    username: postgres
+    password: postgres
+

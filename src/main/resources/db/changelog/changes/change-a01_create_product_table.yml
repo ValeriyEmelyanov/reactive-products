@@ -1,0 +1,20 @@
+databaseChangeLog:
+  - changeSet:
+      id: a01
+      author: Valeriy Emelyanov
+      changes:
+        - createTable:
+            tableName: product
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: title
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
