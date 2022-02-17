@@ -11,6 +11,6 @@
 * Lombok
 * PostgreSQL
 * R2DBC
-* Liqubase
+* Liquibase
 * Maven
 * REST API
