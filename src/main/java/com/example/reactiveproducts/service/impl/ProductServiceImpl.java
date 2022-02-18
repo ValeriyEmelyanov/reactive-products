@@ -4,8 +4,11 @@ import com.example.reactiveproducts.model.Product;
 import com.example.reactiveproducts.repo.ProductRepository;
 import com.example.reactiveproducts.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
@@ -18,8 +21,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Flux<Product> getAll() {
-        return productRepository.findAll();
+    public Mono<Page<Product>> getPage(PageRequest pageRequest) {
+        return productRepository.findAllBy(pageRequest.withSort(Sort.by("id")))
+                .collectList()
+                .zipWith(productRepository.count())
+                .map(t -> new PageImpl<>(t.getT1(), pageRequest, t.getT2()));
     }
 
     @Override
